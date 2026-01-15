@@ -45,3 +45,22 @@ exports.login = async (req, res) => {
 
 	}
 }
+
+exports.forgotPassword = async (req, res) => {
+	try{
+		const email = req.body.email?.trim()
+		const password = req.body.password
+		if(!email || !password){
+			return res.status(400).json({error: new Error('Bad Request')})
+		}
+		const user = await Users.findOne({ where: { email } })
+		if(!user){
+			return res.status(200).json({message: 'If the account exists, the password has been updated'})
+		}
+		const hash = await bcrypt.hash(password, 10)
+		await Users.update({ password: hash }, { where: { id: user.id } })
+		return res.status(200).json({message: 'If the account exists, the password has been updated'})
+	}catch(err){
+		return res.status(500).json({ error: new Error('Something went wrong')})
+	}
+}

@@ -29,3 +29,21 @@ npm start
 [documentation Swagger](http://localhost:5678/api-docs/)
 
 Pour lire la documentation, utiliser Chrome ou Firefox
+
+## Endpoints ajoutés
+
+### Gestion des catégories
+
+Les endpoints suivants nécessitent un token JWT (header `Authorization: Bearer <token>`).
+
+- **POST** `/api/categories`
+- **PUT** `/api/categories/:id`
+- **DELETE** `/api/categories/:id`
+
+Le `DELETE` renvoie une erreur `409` si la catégorie est déjà utilisée par des works.
+
+### Mot de passe oublié
+
+- **POST** `/api/users/forgot-password`
+  - body: `{ "email": "...", "password": "..." }`
+  - met à jour le mot de passe de l'utilisateur si le compte existe

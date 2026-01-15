@@ -17,12 +17,12 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<li><a href="login.html" style="text-decoration: none; color: inherit;">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
-<main>
+ <main>
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
@@ -35,52 +35,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="portfolio-header">
+			<h2>Mes Projets</h2>
+			<button class="portfolio-edit" id="open-modal" type="button" aria-haspopup="dialog" aria-controls="modal-overlay">
+				<span class="portfolio-edit-icon" aria-hidden="true"></span>
+				<span>modifier</span>
+			</button>
+		</div>
+		<div class="filters"></div>
 		<div class="gallery">
-			<figure>
-				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
-				<figcaption>Abajour Tahina</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
-				<figcaption>Appartement Paris V</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
-				<figcaption>Restaurant Sushisen - Londres</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
-				<figcaption>Villa “La Balisiere” - Port Louis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
-				<figcaption>Structures Thermopolis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
-				<figcaption>Appartement Paris X</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
-				<figcaption>Pavillon “Le coteau” - Cassis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
-				<figcaption>Villa Ferneze - Isola d’Elba</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
-				<figcaption>Appartement Paris XVIII</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
-				<figcaption>Bar “Lullaby” - Paris</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
-				<figcaption>Hotel First Arte - New Delhi</figcaption>
-			</figure>
 		</div>
 	</section>
 	<section id="contact">
@@ -98,6 +61,49 @@
 	</section>
 </main>
 
+<div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+	<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+		<button class="modal-close" id="modal-close" type="button" aria-label="Fermer la fenêtre">
+			×
+		</button>
+		<h3 class="modal-title" id="modal-title">Galerie photo</h3>
+
+		<div class="modal-section" id="modal-gallery-section">
+			<div class="modal-gallery" id="modal-gallery"></div>
+			<div class="modal-actions">
+				<button class="modal-primary" id="modal-add-photo-btn" type="button">Ajouter une photo</button>
+			</div>
+		</div>
+
+		<div class="modal-section" id="modal-form-section" hidden>
+			<button class="modal-back" id="modal-back" type="button" aria-label="Retour">
+				←
+			</button>
+			<form class="modal-form" id="add-photo-form">
+				<div class="add-photo-upload" id="add-photo-upload">
+					<div class="add-photo-upload-inner">
+						<div class="add-photo-upload-icon" id="add-photo-upload-icon" aria-hidden="true"></div>
+						<img class="add-photo-preview" id="add-photo-preview" alt="" hidden>
+						<button class="add-photo-button" id="photo-add-btn" type="button">+ Ajouter photo</button>
+						<p class="add-photo-hint">jpg, png : 4mo max</p>
+					</div>
+					<input id="photo-file" name="image" type="file" accept="image/png,image/jpeg" hidden>
+				</div>
+
+				<label for="photo-title">Titre</label>
+				<input id="photo-title" name="title" type="text">
+
+				<label for="photo-category">Catégorie</label>
+				<select id="photo-category" name="category"></select>
+
+				<div class="modal-separator" aria-hidden="true"></div>
+
+				<button class="modal-primary" id="photo-submit" type="submit" disabled>Valider</button>
+			</form>
+		</div>
+	</div>
+</div>
+
 <footer>
 	<nav>
 		<ul>
@@ -105,5 +111,6 @@
 		</ul>
 	</nav>
 </footer>
+<script src="app.js"></script>
 </body>
 </html>
