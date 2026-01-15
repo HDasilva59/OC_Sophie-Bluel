@@ -17,7 +17,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<li><a href="login.html" id="loginLink">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -35,7 +35,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="portfolio-header">
+			<h2>Mes Projets</h2>
+			<button type="button" class="edit-btn" id="editBtn" hidden>
+				<svg class="edit-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+					<path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25ZM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83Z"/>
+				</svg>
+				<span>modifier</span>
+			</button>
+		</div>
 		<div class="filters" id="filters"></div>
 		<div class="gallery">
 		</div>
@@ -62,6 +70,7 @@
 		</ul>
 	</nav>
 </footer>
+	<div class="modal-overlay" id="modalOverlay" aria-hidden="true"></div>
 	<script src="./app.js" defer></script>
 </body>
 </html>
