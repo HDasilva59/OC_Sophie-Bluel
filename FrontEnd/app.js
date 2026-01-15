@@ -236,6 +236,9 @@ async function initPortfolio() {
 		let works = [];
 		let activeFilter = "all";
 
+		const isAuthed = Boolean(getToken());
+		setEditModeUI(isAuthed);
+
 		const refresh = async () => {
 			[categories, works] = await Promise.all([
 				fetchJson(`${API_BASE_URL}/categories`),
@@ -255,15 +258,26 @@ async function initPortfolio() {
 			renderGallery(filterWorks(works, activeFilter));
 		};
 
-		await refresh();
-		update();
-
-		const isAuthed = Boolean(getToken());
-		setEditModeUI(isAuthed);
+		try {
+			await refresh();
+			update();
+		} catch (err) {
+			console.error("Failed to load portfolio data", err);
+		}
 
 		const editBtn = document.getElementById("editBtn");
-		if (editBtn && isAuthed) {
-			editBtn.addEventListener("click", () => {
+		if (editBtn) {
+			editBtn.addEventListener("click", async () => {
+				if (!getToken()) return;
+
+				try {
+					await refresh();
+					update();
+				} catch (err) {
+					console.error("Failed to refresh portfolio data", err);
+					return;
+				}
+
 				openModal(galleryModalTemplate(works));
 
 				const overlay = document.getElementById("modalOverlay");
