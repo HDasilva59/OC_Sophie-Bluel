@@ -1,7 +1,32 @@
 const API_BASE_URL = "http://localhost:5678/api";
 
+function parseJwtPayload(token) {
+	const parts = String(token || "").split(".");
+	if (parts.length !== 3) return null;
+
+	let b64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+	while (b64.length % 4 !== 0) b64 += "=";
+
+	try {
+		const json = atob(b64);
+		return JSON.parse(json);
+	} catch {
+		return null;
+	}
+}
+
+function isTokenValid(token) {
+	if (!token) return false;
+	const payload = parseJwtPayload(token);
+	if (!payload) return false;
+	if (!payload.exp) return true;
+	return Date.now() < Number(payload.exp) * 1000;
+}
+
 function getToken() {
-	return sessionStorage.getItem("token");
+	const token = sessionStorage.getItem("token");
+	if (!isTokenValid(token)) return null;
+	return token;
 }
 
 async function fetchJson(url) {
@@ -25,6 +50,12 @@ async function fetchWithAuth(url, options = {}) {
 		...options,
 		headers,
 	});
+
+	if (res.status === 401) {
+		sessionStorage.removeItem("token");
+		setEditModeUI(false);
+		throw new Error(`HTTP ${res.status} - ${url}`);
+	}
 
 	if (!res.ok) {
 		throw new Error(`HTTP ${res.status} - ${url}`);

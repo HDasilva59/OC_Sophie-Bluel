@@ -47,6 +47,9 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+[hidden] {
+	display: none !important;
+}
 body {
 	max-width: 1140px;
 	margin:auto;
