@@ -1,4 +1,4 @@
-const apiUrl = process.env.LOCAL_API;
+const apiUrl = 'http://localhost:5678/api/users/login';
 
 document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -7,7 +7,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
     
     try {
-        const response = await fetch(`${apiUrl}/api/users/login`, {
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
