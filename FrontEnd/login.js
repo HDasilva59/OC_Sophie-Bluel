@@ -17,9 +17,8 @@ document.querySelector('form').addEventListener('submit', async (e) => {
         
         if (response.ok) {
             const data = await response.json();
-            // Store token in a session cookie
+            // Store token in a session storage
             sessionStorage.setItem('token', data.token);
-            document.cookie = `token=${data.token}; path=/; SameSite=Strict`;
             // Redirect to homepage
             window.location.href = 'index.html';
         } else {
